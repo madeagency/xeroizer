@@ -1,4 +1,5 @@
 require "xeroizer/models/contact_person"
+require "xeroizer/models/balances"
 
 module Xeroizer
   module Record
@@ -52,6 +53,8 @@ module Xeroizer
 
       validates_presence_of :name, :unless => Proc.new { | contact | contact.contact_id.present?}
       validates_inclusion_of :contact_status, :in => CONTACT_STATUS.keys, :allow_blanks => true
+
+      has_one :balances ,:model_name => 'Balances', :list_complete => true
 
       def email_address?
         email_address.present?
